@@ -224,6 +224,3 @@ Feedstock Maintainers
 
 * [@millsks](https://github.com/millsks/)
 
-
-<!-- dummy commit to enable rerendering -->
-
