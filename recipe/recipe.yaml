@@ -30,8 +30,12 @@ requirements:
 
 tests:
   - script:
-      - pixi-sbom --version
-      - pixi-sbom --help
+      # The osx_arm64 package is cross-compiled on an osx_64 runner, which
+      # cannot execute the resulting binary ("Bad CPU type in executable").
+      - if: build_platform == target_platform
+        then:
+          - pixi-sbom --version
+          - pixi-sbom --help
   - package_contents:
       bin:
         - pixi-sbom
