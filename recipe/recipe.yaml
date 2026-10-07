@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "1.5.0"
+  version: "1.6.0"
 
 package:
   name: pixi-sbom
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/millsks/pixi-sbom/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: c034a31e9f0cded5166d8025b96135b138390aa94dc6c9623072dd5f8c158f5d
+  sha256: fab13e242e833d140af32a542d6a71233976c1d86bf95acbc75d1d9dfca1f512
 
 build:
   number: 0
