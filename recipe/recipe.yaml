@@ -2,22 +2,27 @@
 schema_version: 1
 
 context:
-  version: "1.11.0"
+  version: "1.12.0"
 
 package:
   name: pixi-sbom
   version: ${{ version }}
 
 source:
-  url: https://github.com/millsks/pixi-sbom/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: edb746bc4a98dbbaed0c399bd295e40ff718648f7dfb35043c19d14b286398c7
+  # pixi-sbom moved to the aesir-oss/pixi-ext-contrib workspace in 1.12.0; its
+  # releases are tagged pixi-sbom-vX.Y.Z there.
+  url: https://github.com/aesir-oss/pixi-ext-contrib/archive/refs/tags/pixi-sbom-v${{ version }}.tar.gz
+  sha256: cfe5ae457121675e9f1f63bebdada4209835d1ec93a8884874dfa36d583e8bbc
 
 build:
   number: 0
   script:
+    # The repository root is a Cargo workspace; the crate is crates/pixi-sbom.
+    # Cargo.lock and the release profile stay at the root, which cargo uses
+    # for a workspace member.
     - if: unix
-      then: cargo auditable install --locked --bins --no-track --path . --root "$PREFIX"
-      else: cargo auditable install --locked --bins --no-track --path . --root "%LIBRARY_PREFIX%"
+      then: cargo auditable install --locked --bins --no-track --path crates/pixi-sbom --root "$PREFIX"
+      else: cargo auditable install --locked --bins --no-track --path crates/pixi-sbom --root "%LIBRARY_PREFIX%"
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
@@ -42,9 +47,9 @@ tests:
       strict: true
 
 about:
-  homepage: https://millsks.github.io/pixi-sbom/
-  repository: https://github.com/millsks/pixi-sbom
-  documentation: https://millsks.github.io/pixi-sbom/
+  homepage: https://aesir-oss.github.io/pixi-ext-contrib/
+  repository: https://github.com/aesir-oss/pixi-ext-contrib
+  documentation: https://aesir-oss.github.io/pixi-ext-contrib/
   summary: Generate a CycloneDX or SPDX SBOM from a pixi.lock file
   description: |
     A pixi extension that writes a CycloneDX 1.6 / 1.7 or SPDX 2.3 / 3.0.1
