@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "1.12.0"
+  version: "1.13.0"
 
 package:
   name: pixi-sbom
@@ -12,7 +12,7 @@ source:
   # pixi-sbom moved to the aesir-oss/pixi-ext-contrib workspace in 1.12.0; its
   # releases are tagged pixi-sbom-vX.Y.Z there.
   url: https://github.com/aesir-oss/pixi-ext-contrib/archive/refs/tags/pixi-sbom-v${{ version }}.tar.gz
-  sha256: cfe5ae457121675e9f1f63bebdada4209835d1ec93a8884874dfa36d583e8bbc
+  sha256: 3a8ba1669638295b5c49218374260df4ec7e5d1a9b4811d1e21420b37f2f9480
 
 build:
   number: 0
