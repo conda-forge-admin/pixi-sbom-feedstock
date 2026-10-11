@@ -1,5 +1,9 @@
 bot:
   automerge: true
+  # pixi-sbom is released from the aesir-oss/pixi-ext-contrib monorepo, which also tags other components and its own
+  # repository releases (pixi-ext-contrib-YYYY.MM.N): only pixi-sbom's tags are this package's versions.
+  version_updates:
+    allowed_tag_globs: "pixi-sbom-v*"
 conda_build_tool: rattler-build
 github:
   branch_name: main
