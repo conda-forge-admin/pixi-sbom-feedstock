@@ -2,27 +2,24 @@
 schema_version: 1
 
 context:
-  version: "1.13.1"
+  version: "1.13.2"
 
 package:
   name: pixi-sbom
   version: ${{ version }}
 
 source:
-  # pixi-sbom moved to the aesir-oss/pixi-ext-contrib workspace in 1.12.0; its
-  # releases are tagged pixi-sbom-vX.Y.Z there.
-  url: https://github.com/aesir-oss/pixi-ext-contrib/archive/refs/tags/pixi-sbom-v${{ version }}.tar.gz
-  sha256: a7304e9cb22a69955e15dc757f21fac20332fea3787ba1cc1e71a5d13fcf2b7b
+  # From 1.13.2 pixi-sbom has a repository of its own again, tagged vX.Y.Z
+  # (1.12.0 to 1.13.1 came from aesir-oss/pixi-ext-contrib).
+  url: https://github.com/aesir-oss/pixi-sbom/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: b8939f183f5313a20618a7c9b51416ab65a02a78e5ac6946d38b84537a04dad7
 
 build:
   number: 0
   script:
-    # The repository root is a Cargo workspace; the crate is crates/pixi-sbom.
-    # Cargo.lock and the release profile stay at the root, which cargo uses
-    # for a workspace member.
     - if: unix
-      then: cargo auditable install --locked --bins --no-track --path crates/pixi-sbom --root "$PREFIX"
-      else: cargo auditable install --locked --bins --no-track --path crates/pixi-sbom --root "%LIBRARY_PREFIX%"
+      then: cargo auditable install --locked --bins --no-track --path . --root "$PREFIX"
+      else: cargo auditable install --locked --bins --no-track --path . --root "%LIBRARY_PREFIX%"
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
@@ -47,9 +44,9 @@ tests:
       strict: true
 
 about:
-  homepage: https://aesir-oss.github.io/pixi-ext-contrib/
-  repository: https://github.com/aesir-oss/pixi-ext-contrib
-  documentation: https://aesir-oss.github.io/pixi-ext-contrib/
+  homepage: https://aesir-oss.github.io/pixi-sbom/
+  repository: https://github.com/aesir-oss/pixi-sbom
+  documentation: https://aesir-oss.github.io/pixi-sbom/
   summary: Generate a CycloneDX or SPDX SBOM from a pixi.lock file
   description: |
     A pixi extension that writes a CycloneDX 1.6 / 1.7 or SPDX 2.3 / 3.0.1
